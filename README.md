@@ -14,14 +14,16 @@ For more detailed information about building **gdnative** binary and using resul
 
 # Working with XCode
 
+Change **Bundle Identifier** to some unique value. Each framework should have different bundle identifiers.
 Change **Product Name** parameter in **Build Settings** tab to the name you would want to use.
 
 # Building XCFramework
 
 ## Requirements
 
-Building **XCFramework** might require additionaly building **gdnative** library for **i386** archetecture, which is not present at **SConstruct** file by default. 
-This could be worked around by adding additional parameters and conditions for **ios_arch** in SConstruct file in **godot-cpp** directory. Simplier workaround would be changing **Build Active Architecture** in project settings to **Yes** for all configurations.
+Building **XCFramework** might require additionaly building **gdnative** library for **i386** architecture, which is not present at **SConstruct** file by default. 
+This could be worked around by adding additional parameters and conditions for **ios_arch** in SConstruct file in **godot-cpp** directory. 
+Simplier workaround would be changing **Architecture** from **$(ARCHS_STANDARD)** to **armv7 x86_64 arm64** or any other value that works for you.
 
 To create a **.xcframework** run:
 ```
@@ -42,5 +44,5 @@ Using static (**.a**) library will require adding and linking **gdnative.fat.a**
 
 To build **.a** library run:
 ```
-scons platform=ios arch=<arch>
+scons platform=ios arch=<arch> target_name=<library_name>
 ```
