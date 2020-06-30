@@ -1,5 +1,13 @@
 # iOS example for GDNative
 
+This repo contains a *starter* XCode project and SCons configuration to build GDNative library for iOS platform.
+XCode project allows to build **.framework** or **.xcframework** (using specific script) that could be used in Godot project with some changes to iOS library loading code.
+SCons configuration builds a static iOS library that could be used in Godot project without any change to engine source.
+
+# Initial Setup
+
+## Compiling GDNative
+
 To generate **gdnative.fat.a** perform inside **godot-cpp** directory:
 
 ```
