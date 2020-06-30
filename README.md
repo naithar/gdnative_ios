@@ -1,8 +1,8 @@
 # iOS example for GDNative
 
-This repo contains a *starter* XCode project and SCons configuration to build GDNative library for iOS platform.
-XCode project allows to build **.framework** or **.xcframework** (using specific script) that could be used in Godot project with some changes to iOS library loading code.
-SCons configuration builds a static iOS library that could be used in Godot project without any change to engine source.
+This repo contains a *starter* XCode project and SCons configuration to build GDNative library for iOS platform.  
+XCode project allows to build **.framework** or **.xcframework** (using specific script) that could be used in Godot project with some changes to iOS library loading code.  
+SCons configuration builds a static iOS library that could be used in Godot project without any change to engine source.  
 
 # Initial Setup
 
@@ -22,16 +22,18 @@ For more detailed information about building **gdnative** binary and using resul
 
 # Working with XCode
 
-Change **Bundle Identifier** to some unique value. Each framework should have different bundle identifiers.
-Change **Product Name** parameter in **Build Settings** tab to the name you would want to use.
+Change **Bundle Identifier** to some unique value. Each framework should have different bundle identifiers.  
+Change **Product Name** parameter in **Build Settings** tab to the name you would want to use.  
+Add source files to project.
 
 # Building XCFramework
 
 ## Requirements
 
-Building **XCFramework** might require additionaly building **gdnative** library for **i386** architecture, which is not present at **SConstruct** file by default. 
-This could be worked around by adding additional parameters and conditions for **ios_arch** in SConstruct file in **godot-cpp** directory. 
-Simplier workaround would be changing **Architecture** from **$(ARCHS_STANDARD)** to **armv7 x86_64 arm64** or any other value that works for you.
+Building **XCFramework** might require additionaly building **gdnative** library for **i386** architecture, which is not present at **SConstruct** file by default.  
+Simple workaround would be changing **Architecture** from **$(ARCHS_STANDARD)** to **armv7 x86_64 arm64** or any other value that works for you.  
+This also could be worked around by adding additional parameters and conditions for **ios_arch** in SConstruct file in **godot-cpp** directory.   
+
 
 To create a **.xcframework** run:
 ```
@@ -48,7 +50,7 @@ bash xcframework_build.sh gdnative_ios.xcodeproj library gdexample
 
 ## Requirements
 
-Using static (**.a**) library will require adding and linking **gdnative.fat.a** that was previously built to exported iOS app. This can be simplified by moving **gdnative.fat.a** to project folder and adding it as dependency in **.gdnlib** file.
+Using static (**.a**) library will require adding and linking **gdnative.fat.a** that was previously built to exported iOS app. This can be simplified by moving **gdnative.fat.a** to godot project folder and adding it as dependency in **.gdnlib** file.
 
 To build **.a** library run:
 ```
