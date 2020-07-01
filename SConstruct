@@ -26,6 +26,7 @@ opts.Add(EnumVariable('arch', "Compilation platform", '', ['', 'arm64', 'armv7',
 opts.Add(BoolVariable('use_llvm', "Use the LLVM / Clang compiler", 'no'))
 opts.Add(PathVariable('target_path', 'The path where the lib is installed.', 'bin/'))
 opts.Add(PathVariable('target_name', 'The library name.', 'gdexample', PathVariable.PathAccept))
+opts.Add(EnumVariable('mode', 'Library build mode', 'static', ['static', 'dynamic']))
 
 # Local dependency paths, adapt them to your setup
 godot_headers_path = "godot-cpp/godot_headers/"
@@ -89,8 +90,7 @@ if env['platform'] == "ios":
     env.Append(
         LINKFLAGS=[
             "-arch", 
-            "arm64", 
-            "-v", 
+            env['arch'],
             "-miphoneos-version-min=10.0",
             '-isysroot', sdk_path,
             '-F' + sdk_path
@@ -108,7 +108,10 @@ sources = Glob('gdnative_ios/src/*.cpp')
 sources.append(Glob("gdnative_ios/src/*.mm"))
 sources.append(Glob("gdnative_ios/src/*.m"))
 
-library = env.StaticLibrary(target=env['target_path'] + env['target_name'] , source=sources)
+if env['mode'] == 'static':
+    library = env.StaticLibrary(target=env['target_path'] + env['target_name'] , source=sources)
+else:
+    library = env.SharedLibrary(target=env['target_path'] + env['target_name'] , source=sources)
 
 Default(library)
 

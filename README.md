@@ -8,14 +8,14 @@ SCons configuration builds a static iOS library that could be used in Godot proj
 
 ## Compiling GDNative
 
-To generate **gdnative.fat.a** perform inside **godot-cpp** directory:
+To generate **libgdnative.fat.a** perform inside **godot-cpp** directory:
 
 ```
 scons platform=ios ios_arch=armv7 target=<target> -j4  
 scons platform=ios ios_arch=arm64 target=<target> -j4  
 scons platform=ios ios_arch=x86_64 target=<target> -j4  
 
-lipo -create bin/libgodot-cpp.ios.<target>.arm64.a bin/libgodot-cpp.ios.<target>.armv7.a bin/libgodot-cpp.ios.<target>.x86_64.a -output bin/gdnative.fat.a
+lipo -create bin/libgodot-cpp.ios.<target>.arm64.a bin/libgodot-cpp.ios.<target>.armv7.a bin/libgodot-cpp.ios.<target>.x86_64.a -output bin/libgdnative.fat.a
 ```
 
 For more detailed information about building **gdnative** binary and using resulting dynamic or static library go to [Godot Docs](https://docs.godotengine.org/en/stable/tutorials/plugins/gdnative/gdnative-cpp-example.html)
@@ -50,9 +50,16 @@ bash xcframework_build.sh gdnative_ios.xcodeproj library gdexample
 
 ## Requirements
 
-Using static (**.a**) library will require adding and linking **gdnative.fat.a** that was previously built to exported iOS app. This can be simplified by moving **gdnative.fat.a** to godot project folder and adding it as dependency in **.gdnlib** file.
+Using static (**.a**) library will require adding and linking **libgdnative.fat.a** that was previously built to exported iOS app. This can be simplified by moving **libgdnative.fat.a** to godot project folder and adding it as dependency in **.gdnlib** file.
 
 To build **.a** library run:
 ```
 scons platform=ios arch=<arch> target_name=<library_name>
+```
+
+# Building Dynamic library
+
+To build **.dylib** library run:
+```
+scons platform=ios arch=<arch> target_name=<library_name> mode=dynamic
 ```
