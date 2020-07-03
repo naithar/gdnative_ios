@@ -1,8 +1,13 @@
 # iOS example for GDNative
 
 This repo contains a *starter* XCode project and SCons configuration to build GDNative library for iOS platform.  
-XCode project allows to build **.framework** or **.xcframework** (using specific script) that could be used in Godot project with some changes to iOS library loading code.  
-SCons configuration builds a static iOS library that could be used in Godot project without any change to engine source.  
+XCode project allows to build **.framework** or **.xcframework** (using specific script).
+SCons configuration builds a static (**.a**) or dynamic (**.dylib**) iOS library.  
+All resulting products can be used for creating GDNative library in Godot project. (`master` [#40050](https://github.com/godotengine/godot/pull/40050) and current `3.2` branches [#39996](https://github.com/godotengine/godot/pull/39996))
+
+I would recomend using either **.xcframework** or **.a** library.  
+While **.a** require static **gdnative** library linked to iOS project and fake dynamic table, it would result in smallest application size.  
+**.xcframework** provides multi-architecture framework product. This safes you from manually striping **simulator** architecture before App Store upload (like **.framework** would). It also results in smaller application size then **.dylib**, but bigger than **.a** library.
 
 # Initial Setup
 
